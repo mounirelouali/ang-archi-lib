@@ -7,28 +7,28 @@
     "generics": {
       "executor": "nx:run-commands",
       "options": {
-        "command": "node --import tsx libs/j0-examples/src/01-generics.ts",
+        "command": "npx tsx libs/j0-examples/src/01-generics.ts",
         "cwd": "{workspaceRoot}"
       }
     },
     "utility": {
       "executor": "nx:run-commands",
       "options": {
-        "command": "node --import tsx libs/j0-examples/src/02-utility-types.ts",
+        "command": "npx tsx libs/j0-examples/src/02-utility-types.ts",
         "cwd": "{workspaceRoot}"
       }
     },
     "mapped": {
       "executor": "nx:run-commands",
       "options": {
-        "command": "node --import tsx libs/j0-examples/src/03-mapped-types.ts",
+        "command": "npx tsx libs/j0-examples/src/03-mapped-types.ts",
         "cwd": "{workspaceRoot}"
       }
     },
     "guards": {
       "executor": "nx:run-commands",
       "options": {
-        "command": "node --import tsx libs/j0-examples/src/04-type-guards.ts",
+        "command": "npx tsx libs/j0-examples/src/04-type-guards.ts",
         "cwd": "{workspaceRoot}"
       }
     },
