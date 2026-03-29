@@ -44,14 +44,56 @@ node --version
 # Vérifier pnpm (doit être installé globalement)
 pnpm --version
 
-# Si pnpm n'est pas installé
-npm install -g pnpm
-
 # Vérifier Git
 git --version
 ```
 
-**Versions recommandées** : Node.js 18.x ou 20.x, pnpm 8.x ou 9.x, Git 2.x
+**Versions recommandées** : Node.js 18.x ou 20.x, pnpm 8.x ou 10.x, Git 2.x
+
+---
+
+#### 🛠️ Installation si prérequis manquants
+
+**Si Node.js n'est pas installé** :
+
+1. Télécharger depuis [https://nodejs.org](https://nodejs.org)
+2. Installer la version **LTS** (Long Term Support) - v20.x recommandée
+3. Vérifier l'installation :
+```bash
+node --version
+npm --version
+```
+
+**Si pnpm n'est pas installé** :
+
+```bash
+# Installer pnpm globalement via npm
+npm install -g pnpm
+
+# Vérifier l'installation
+pnpm --version
+```
+
+**Si Git n'est pas installé** :
+
+1. **Windows** : Télécharger depuis [https://git-scm.com/download/win](https://git-scm.com/download/win)
+2. **macOS** : `brew install git` ou télécharger depuis [https://git-scm.com](https://git-scm.com)
+3. **Linux** : `sudo apt-get install git` (Debian/Ubuntu) ou `sudo yum install git` (Red Hat/Fedora)
+4. Vérifier l'installation :
+```bash
+git --version
+```
+
+**Configurer Git (première installation)** :
+
+```bash
+# Configurer votre identité
+git config --global user.name "Votre Nom"
+git config --global user.email "votre.email@example.com"
+
+# Vérifier la configuration
+git config --global --list
+```
 
 ---
 
@@ -177,21 +219,23 @@ pnpm install
 
 ### Exécution des exemples TypeScript
 
+**⚠️ Important** : Tous les scripts du Jour 0 sont préfixés par `j0:` pour indiquer qu'ils concernent les prérequis de la formation.
+
 ```bash
 # 1.1 Generics et Inférence de Types
-pnpm ts:generics
+pnpm j0:ts:generics
 
 # 1.2 Utility Types
-pnpm ts:utility
+pnpm j0:ts:utility
 
 # 1.3 Mapped Types
-pnpm ts:mapped
+pnpm j0:ts:mapped
 
 # 1.4 Type Guards
-pnpm ts:guards
+pnpm j0:ts:guards
 
 # Tous les exemples en séquence
-pnpm ts:all
+pnpm j0:ts:all
 ```
 
 ### Sortie Attendue
@@ -219,11 +263,58 @@ Résultat: [
 ✅ "category" est accepté (clé valide)
 ✅ "catgory" est refusé (erreur de compilation)
 ✅ Erreur détectée AVANT exécution
+✅ Économie de temps de debug
 ```
 
 ---
 
+### ✅ Workflow Complet Validé (Checklist)
+
+Avant de commencer le Jour 1, assurez-vous que ce workflow fonctionne :
+
+```bash
+# 1. Vérifier les prérequis système
+node --version        # v18+ ou v20+
+pnpm --version        # v8+ ou v10+
+git --version         # v2+
+
+# 2. Naviguer vers le workspace
+cd d:\playground\ang-archi-lib\ANGULAR_UI_KIT_ESPACE_STAGIAIRES\02_Atelier_Stagiaires\enterprise-workspace
+
+# 3. Installer les dépendances
+pnpm install
+
+# 4. Si warning "Ignored build scripts", approuver
+pnpm approve-builds
+
+# 5. Tester un exemple (nx demandera installation au 1er lancement)
+pnpm j0:ts:generics
+# → Tapez 'y' puis Entrée si npx demande d'installer nx
+
+# 6. Une fois nx installé, tester tous les exemples
+pnpm j0:ts:all
+```
+
+**Résultat attendu** : Tous les exemples s'exécutent sans erreur et affichent les résultats dans la console.
+
+---
+
 ### 🔧 Dépannage Fréquent
+
+**❌ Problème** : `pnpm ts:generics` retourne "Missing script: ts:generics"
+
+**✅ Solution** : Utilisez le préfixe `j0:` pour les scripts du Jour 0
+```bash
+# ❌ INCORRECT
+pnpm ts:generics
+
+# ✅ CORRECT
+pnpm j0:ts:generics
+```
+
+**Explication** : Tous les scripts de ce workspace sont préfixés par `j0:` pour indiquer qu'ils concernent les prérequis (Jour 0). Consultez `package.json` pour voir la liste complète des scripts disponibles. Le message d'erreur de pnpm suggère automatiquement la bonne commande.
+
+---
 
 **❌ Problème** : "Je ne trouve pas le dossier `enterprise-workspace` après clonage"
 
@@ -250,6 +341,23 @@ npm install -g pnpm
 # Puis réessayer : pnpm install
 ```
 
+**❌ Problème** : npx demande "Need to install nx@22.6.3. Ok to proceed? (y)"
+
+**✅ Solution** : C'est normal au premier lancement. Tapez `y` puis Entrée.
+```bash
+# npx va installer nx temporairement
+Need to install the following packages:
+nx@22.6.3
+Ok to proceed? (y) y    # ← Tapez y puis Entrée
+```
+
+**Alternative** : Installer nx globalement pour éviter cette question :
+```bash
+npm install -g nx
+# Ou avec pnpm
+pnpm add -g nx
+```
+
 **❌ Problème** : "nx : commande introuvable lors de l'exécution"
 
 **✅ Solution** : Les scripts utilisent `npx nx` automatiquement, pas besoin d'installer nx globalement. Si le problème persiste :
@@ -257,6 +365,16 @@ npm install -g pnpm
 # Réinstaller les dépendances
 pnpm install --force
 ```
+
+**❌ Problème** : Warning après `pnpm install` : "Ignored build scripts: esbuild, nx"
+
+**✅ Solution** : C'est un **warning de sécurité**, pas une erreur. pnpm bloque les build scripts par précaution. Pour approuver :
+```bash
+# Approuver tous les build scripts
+pnpm approve-builds
+```
+
+**Explication** : pnpm v10+ bloque par défaut l'exécution des scripts de post-installation pour des raisons de sécurité. La commande `approve-builds` ajoute les packages de confiance (esbuild, nx) à la liste blanche.
 
 ---
 
