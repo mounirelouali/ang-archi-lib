@@ -639,14 +639,118 @@ Utilisez cette grille pour évaluer votre niveau actuel. Notez-vous honnêtement
 
 ---
 
-## 🚀 PROCHAINES ÉTAPES
+## � CONFIGURATION INITIALE DE VOTRE ENVIRONNEMENT
+
+Avant de démarrer la formation, vous devez récupérer le code de formation sur votre machine locale.
+
+### Étape 1 : Vérifier les prérequis système
+
+Assurez-vous d'avoir installé sur votre machine :
+
+```bash
+# Vérifier Node.js (version 18+ requise)
+node --version
+
+# Vérifier pnpm (doit être installé globalement)
+pnpm --version
+
+# Si pnpm n'est pas installé, exécutez :
+npm install -g pnpm
+
+# Vérifier Git
+git --version
+```
+
+**Versions recommandées** :
+- Node.js : 18.x ou 20.x
+- pnpm : 8.x ou 9.x
+- Git : 2.x
+
+---
+
+### Étape 2 : Cloner le dépôt de formation
+
+Ouvrez un terminal et exécutez les commandes suivantes :
+
+```bash
+# Choisir le dossier où vous voulez installer la formation
+cd C:\dev\formations
+# Ou sur Mac/Linux : cd ~/dev/formations
+
+# Cloner le dépôt GitHub
+git clone https://github.com/mounirelouali/ang-archi-lib.git
+
+# Entrer dans le dossier
+cd ang-archi-lib
+```
+
+**Structure du projet cloné** :
+```
+ang-archi-lib/
+├── 01_Demo_Formateur/          # Code des démonstrations live
+├── 02_Atelier_Stagiaires/      # Vos ateliers pratiques
+│   └── J0_Prerequis/           # Ce document
+└── 03_Solutions_Zippees/       # Solutions finales (disponibles en fin de session)
+```
+
+---
+
+### Étape 3 : Vérifier la configuration Git
+
+```bash
+# Vérifier votre identité Git (importante pour les commits)
+git config --global user.name "Votre Nom"
+git config --global user.email "votre.email@example.com"
+
+# Vérifier que le remote est correctement configuré
+git remote -v
+# Doit afficher :
+# origin  https://github.com/mounirelouali/ang-archi-lib.git (fetch)
+# origin  https://github.com/mounirelouali/ang-archi-lib.git (push)
+```
+
+---
+
+### Étape 4 : Récupérer les mises à jour pendant la formation
+
+Pendant les 3 jours de formation, le formateur ajoutera du contenu au dépôt. Pour récupérer ces mises à jour :
+
+```bash
+# Depuis le dossier ang-archi-lib
+git pull origin main
+```
+
+**Conseil** : Exécutez cette commande au début de chaque session pour avoir le contenu le plus récent.
+
+---
+
+### Étape 5 : Ouvrir le projet dans votre IDE
+
+```bash
+# Ouvrir avec Visual Studio Code
+code .
+
+# Ou ouvrir avec WebStorm
+idea .
+```
+
+**Extensions VS Code recommandées** :
+- Angular Language Service
+- ESLint
+- Prettier
+- GitLens
+
+---
+
+## �🚀 PROCHAINES ÉTAPES
 
 **Avant le Jour 1** :
 
 1. ✅ Complétez cette auto-évaluation honnêtement
 2. ✅ Notez vos points faibles à clarifier avec le formateur
 3. ✅ Consultez la documentation officielle pour les concepts notés à 1 ou 2
-4. ✅ Assurez-vous d'avoir un environnement de développement fonctionnel :
+4. ✅ Clonez le dépôt GitHub et vérifiez que tout fonctionne
+5. ✅ Assurez-vous d'avoir un environnement de développement fonctionnel :
    - Node.js 18+
    - pnpm installé globalement (`npm install -g pnpm`)
    - Visual Studio Code ou WebStorm
