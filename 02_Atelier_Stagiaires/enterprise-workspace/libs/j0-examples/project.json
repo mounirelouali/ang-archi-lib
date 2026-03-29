@@ -1,0 +1,49 @@
+{
+  "name": "j0-examples",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "libs/j0-examples/src",
+  "projectType": "library",
+  "targets": {
+    "generics": {
+      "executor": "nx:run-commands",
+      "options": {
+        "command": "node --import tsx libs/j0-examples/src/01-generics.ts",
+        "cwd": "{workspaceRoot}"
+      }
+    },
+    "utility": {
+      "executor": "nx:run-commands",
+      "options": {
+        "command": "node --import tsx libs/j0-examples/src/02-utility-types.ts",
+        "cwd": "{workspaceRoot}"
+      }
+    },
+    "mapped": {
+      "executor": "nx:run-commands",
+      "options": {
+        "command": "node --import tsx libs/j0-examples/src/03-mapped-types.ts",
+        "cwd": "{workspaceRoot}"
+      }
+    },
+    "guards": {
+      "executor": "nx:run-commands",
+      "options": {
+        "command": "node --import tsx libs/j0-examples/src/04-type-guards.ts",
+        "cwd": "{workspaceRoot}"
+      }
+    },
+    "run-all": {
+      "executor": "nx:run-commands",
+      "options": {
+        "commands": [
+          "nx run j0-examples:generics",
+          "nx run j0-examples:utility",
+          "nx run j0-examples:mapped",
+          "nx run j0-examples:guards"
+        ],
+        "parallel": false
+      }
+    }
+  },
+  "tags": ["scope:j0", "type:examples"]
+}

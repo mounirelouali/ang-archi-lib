@@ -31,6 +31,235 @@ Ce format permet de comprendre le **"pourquoi"** avant le **"comment"**, et de m
 
 ---
 
+## ⚙️ CONFIGURATION INITIALE DE VOTRE ENVIRONNEMENT
+
+Avant de démarrer la formation, vous devez récupérer le code de formation sur votre machine locale.
+
+### Étape 1 : Vérifier les prérequis système
+
+```bash
+# Vérifier Node.js (version 18+ requise)
+node --version
+
+# Vérifier pnpm (doit être installé globalement)
+pnpm --version
+
+# Si pnpm n'est pas installé
+npm install -g pnpm
+
+# Vérifier Git
+git --version
+```
+
+**Versions recommandées** : Node.js 18.x ou 20.x, pnpm 8.x ou 9.x, Git 2.x
+
+---
+
+### Étape 2 : Cloner le dépôt de formation
+
+```bash
+# Choisir le dossier où installer la formation
+cd C:\dev\formations
+# Ou sur Mac/Linux : cd ~/dev/formations
+
+# Cloner le dépôt GitHub
+git clone https://github.com/mounirelouali/ang-archi-lib.git
+
+# Entrer dans le dossier
+cd ang-archi-lib
+```
+
+**Structure du projet cloné** :
+```
+ang-archi-lib/                       # Dossier créé par git clone
+├── 01_Demo_Formateur/               # Code des démonstrations live
+├── 02_Atelier_Stagiaires/           # Vos ateliers pratiques
+│   ├── enterprise-workspace/        # ✅ RACINE UNIQUE (node_modules partagé J0-J3)
+│   │   ├── package.json             # ✅ UNIQUE package.json
+│   │   ├── node_modules/            # ✅ UNIQUE dépendances (après pnpm install)
+│   │   └── libs/
+│   │       └── j0-examples/         # Exemples J0 TypeScript
+│   │           ├── project.json
+│   │           └── src/
+│   │               ├── 01-generics.ts
+│   │               ├── 02-utility-types.ts
+│   │               ├── 03-mapped-types.ts
+│   │               └── 04-type-guards.ts
+│   └── J0_Prerequis/
+│       └── J0_Prerequis.md          # Ce document
+└── 03_Solutions_Zippees/            # Solutions finales
+```
+
+**⚠️ Important** : Le dossier `00_Preparation_Secrete_IA/` n'est **pas** sur GitHub (dossier privé formateur uniquement).
+
+
+---
+
+### Étape 3 : Vérifier la configuration Git
+
+```bash
+# Vérifier votre identité Git
+git config --global user.name "Votre Nom"
+git config --global user.email "votre.email@example.com"
+
+# Vérifier que le remote est correctement configuré
+git remote -v
+# Doit afficher :
+# origin  https://github.com/mounirelouali/ang-archi-lib.git (fetch)
+# origin  https://github.com/mounirelouali/ang-archi-lib.git (push)
+```
+
+---
+
+### Étape 4 : Récupérer les mises à jour pendant la formation
+
+Pendant les 3 jours de formation, le formateur ajoutera du contenu au dépôt. Pour récupérer ces mises à jour :
+
+```bash
+# Depuis n'importe quel sous-dossier du projet
+git pull origin main
+
+# Exemple concret :
+cd C:\dev\formations\ang-archi-lib
+git pull origin main
+```
+
+**Conseil** : Exécutez cette commande au début de chaque session pour avoir le contenu le plus récent.
+
+---
+
+### Étape 5 : Ouvrir le projet dans votre IDE
+
+```bash
+# Ouvrir avec Visual Studio Code
+code .
+
+# Ou ouvrir avec WebStorm
+idea .
+```
+
+**Extensions VS Code recommandées** :
+- Angular Language Service
+- ESLint
+- Prettier
+- GitLens
+
+---
+
+## 🎯 EXÉCUTER LES EXEMPLES PRATIQUES
+
+Tous les exemples de code de cette session sont **exécutables** dans le dossier `j0-workspace`.
+
+### Architecture Nx Integrated Monorepo
+
+Le workspace `j0-workspace` respecte strictement la directive :
+- ✅ **1 seul `node_modules`** à la racine du workspace
+- ✅ **1 seul `package.json`** racine (aucun package.json intermédiaire)
+- ✅ **Nx Integrated Monorepo** avec pnpm
+- ✅ Tous les exemples dans `libs/ts-examples` (sans package.json dédié)
+
+### Installation
+
+```bash
+# Depuis la racine du dépôt cloné
+cd ang-archi-lib/02_Atelier_Stagiaires/enterprise-workspace
+
+# Installer les dépendances (crée 1 seul node_modules partagé)
+pnpm install
+```
+
+**Chemin complet depuis votre dossier de formation** :
+```bash
+# Exemple : Si vous avez cloné dans C:\dev\formations\
+cd C:\dev\formations\ang-archi-lib\02_Atelier_Stagiaires\enterprise-workspace
+pnpm install
+```
+
+### Exécution des exemples TypeScript
+
+```bash
+# 1.1 Generics et Inférence de Types
+pnpm ts:generics
+
+# 1.2 Utility Types
+pnpm ts:utility
+
+# 1.3 Mapped Types
+pnpm ts:mapped
+
+# 1.4 Type Guards
+pnpm ts:guards
+
+# Tous les exemples en séquence
+pnpm ts:all
+```
+
+### Sortie Attendue
+
+Chaque exemple affiche :
+- ✅ Le titre de la section
+- 📚 Les résultats d'exécution
+- 💡 Les explications techniques
+- 💎 Les bénéfices concrets
+
+**Exemple de sortie (`pnpm j0:ts:generics`)** :
+```
+=== 1.1 Generics et Inférence de Types ===
+
+❌ Fonction BAD avec typo "catgory":
+Résultat: []
+
+✅ Fonction type-safe avec "category":
+Résultat: [
+  { id: 1, name: 'Laptop', category: 'Electronics', price: 1200 },
+  { id: 2, name: 'Mouse', category: 'Electronics', price: 25 }
+]
+
+💎 VALEUR:
+✅ "category" est accepté (clé valide)
+✅ "catgory" est refusé (erreur de compilation)
+✅ Erreur détectée AVANT exécution
+```
+
+---
+
+### 🔧 Dépannage Fréquent
+
+**❌ Problème** : "Je ne trouve pas le dossier `enterprise-workspace` après clonage"
+
+**✅ Solution** : Vérifiez que vous êtes dans le bon répertoire
+```bash
+# Après git clone https://github.com/mounirelouali/ang-archi-lib.git
+cd ang-archi-lib
+ls  # ou dir sur Windows
+
+# Vous devez voir :
+# 01_Demo_Formateur/
+# 02_Atelier_Stagiaires/  ← Le workspace est ICI
+# 03_Solutions_Zippees/
+
+# Naviguer vers le workspace
+cd 02_Atelier_Stagiaires/enterprise-workspace
+```
+
+**❌ Problème** : "pnpm : commande introuvable"
+
+**✅ Solution** : Installer pnpm globalement
+```bash
+npm install -g pnpm
+# Puis réessayer : pnpm install
+```
+
+**❌ Problème** : "nx : commande introuvable lors de l'exécution"
+
+**✅ Solution** : Les scripts utilisent `npx nx` automatiquement, pas besoin d'installer nx globalement. Si le problème persiste :
+```bash
+# Réinstaller les dépendances
+pnpm install --force
+```
+
+---
+
 ## 📚 DOMAINES D'AUTO-ÉVALUATION
 
 Nous allons explorer ensemble les 7 domaines critiques pour cette formation.
@@ -44,49 +273,53 @@ Nous allons explorer ensemble les 7 domaines critiques pour cette formation.
 Observons un problème récurrent : une faute de frappe sur le nom d'une propriété peut produire un mauvais résultat sans aucune alerte.
 
 ```typescript
-// Code vulnérable
+// Code vulnérable avec any
 function filterProductsBAD(products: any[], key: string, value: any): any[] {
   return products.filter(product => product[key] === value);
 }
 
 // TYPO : 'catgory' au lieu de 'category'
 const electronics = filterProductsBAD(products, 'catgory', 'Electronics');
-// Retourne [] silencieusement (pas d'erreur)
+// ❌ Retourne [] silencieusement (pas d'erreur)
 ```
 
-**Inconvénient** :
-- ❌ Pas d'erreur visible
-- ❌ Pas d'alerte TypeScript
-- ❌ Résultat faux
-- ❌ Le filtre semble marcher, mais ne trouve rien
+**Inconvénient** : Pas d'erreur visible, résultat faux, débogage difficile.
+
+---
 
 **🟢 GAIN — Comment bloque-t-on cette erreur ?**
 
-Explorons la solution type-safe. Avec `K extends keyof T`, nous indiquons à TypeScript que `key` doit être une vraie clé de l'objet.
+Explorons la solution type-safe.
 
 ```typescript
-// Solution type-safe
+// Fonction générique : K doit être une clé valide de T
 function filterByType<T, K extends keyof T>(
   items: T[],
-  key: K,          // Clé VALIDE de T
-  value: T[K]
+  key: K,              // Clé garantie existante
+  value: T[K]          // Type inféré selon la clé
 ): T[] {
   return items.filter(item => item[key] === value);
 }
 
 const electronics = filterByType(products, 'category', 'Electronics');
-// ✅ "category" est accepté
-
-// ❌ Décommentez pour voir l'erreur :
-// const error = filterByType(products, 'catgory', 'Electronics');
-// Erreur : Argument of type '"catgory"' is not assignable to parameter of type 'keyof Product'
+// ✅ "category" accepté | ❌ "catgory" refusé
 ```
 
-**💎 VALEUR** :
-- ✅ "category" est accepté
-- ✅ "catgory" est refusé
-- ✅ L'erreur est vue **avant** d'exécuter le code
-- ✅ On évite un faux résultat silencieux
+#### 💡 Décryptage de l'implémentation
+
+**`<T, K extends keyof T>`** : Deux paramètres génériques. `K` est contraint aux clés **valides** de `T`. TypeScript refuse toute clé inexistante.
+
+**`key: K`** : Plus un `string` vague, mais une clé **garantie** existante. Sécurité à la compilation.
+
+**`value: T[K]`** : Type inféré automatiquement selon la clé. Si `category` est `string`, `value` doit être `string`.
+
+**Résultat** : `"category"` ✅ accepté, `"catgory"` ❌ refusé (erreur TypeScript avant exécution).
+
+---
+
+**💎 VALEUR** : Erreur détectée avant runtime, économie temps debug, code type-safe garanti.
+
+---
 
 #### 1.2 Utility Types (Partial, Pick, Record, etc.)
 
@@ -100,34 +333,41 @@ interface User {
   role: string;
 }
 
-// Partial : tous les champs optionnels
+// Tous les champs optionnels
 type UserUpdate = Partial<User>;
 
-// Pick : sélection de champs spécifiques
+// Sélection de champs spécifiques
 type UserCredentials = Pick<User, 'email' | 'role'>;
 
-// Omit : exclusion de champs
+// Exclusion de champs
 type UserPublic = Omit<User, 'email'>;
 
-// Record : création d'un objet typé
+// Création d'un objet typé clé-valeur
 type UserRoles = Record<string, User[]>;
 ```
 
-**Points clés** :
-- `Partial<T>` rend tous les champs optionnels
-- `Pick<T, K>` sélectionne uniquement les champs spécifiés
-- `Omit<T, K>` exclut les champs spécifiés
-- `Record<K, T>` crée un objet avec clés de type K et valeurs de type T
+#### 💡 Décryptage de l'implémentation
+
+**`Partial<User>`** : Rend tous les champs optionnels. Utile pour les fonctions d'update partiel.
+
+**`Pick<User, 'email' | 'role'>`** : Extrait uniquement les propriétés spécifiées. Crée interfaces minimalistes.
+
+**`Omit<User, 'email'>`** : Exclut les propriétés spécifiées. Idéal pour données publiques sans infos sensibles.
+
+**`Record<string, User[]>`** : Crée un dictionnaire typé. Exemple : `{ "admin": [user1], "viewer": [user2] }`.
+
+---
 
 #### 1.3 Mapped Types et Conditional Types
 
 Observons comment créer des types complexes avec transformations conditionnelles et récursives.
 
 ```typescript
+// Type récursif : rend readonly en profondeur
 type DeepReadonly<T> = {
   readonly [K in keyof T]: T[K] extends object
-    ? DeepReadonly<T[K]>
-    : T[K];
+    ? DeepReadonly<T[K]>  // Récursion si objet
+    : T[K];               // Type primitif inchangé
 };
 
 interface Config {
@@ -139,10 +379,18 @@ interface Config {
 }
 
 type ReadonlyConfig = DeepReadonly<Config>;
-// Tous les champs et sous-champs sont readonly
+// Tous les champs et sous-champs deviennent readonly
 ```
 
-**Point clé** : Les Mapped Types permettent de transformer récursivement chaque propriété d'un type.
+#### 💡 Décryptage de l'implémentation
+
+**`readonly [K in keyof T]`** : Parcourt toutes les clés de `T` et applique `readonly`. Pattern Mapped Type.
+
+**`T[K] extends object ? ... : ...`** : Conditional Type qui vérifie si la valeur est un objet. Si oui, applique récursivement `DeepReadonly`. Si non, retourne le type tel quel.
+
+**Résultat** : Tous les champs et sous-champs deviennent readonly. Impossible de faire `config.api.url = 'newUrl'`.
+
+---
 
 #### 1.4 Type Guards et Sécurité d'Exécution
 
@@ -166,17 +414,23 @@ function isDog(animal: Animal): animal is Dog {
   return animal.type === 'dog';
 }
 
-// Utilisation
+// Utilisation : TypeScript réduit (narrow) le type
 function makeSound(animal: Animal) {
   if (isDog(animal)) {
-    animal.bark(); // TypeScript sait que c'est un Dog
+    animal.bark();  // TypeScript sait que c'est un Dog
   } else {
-    animal.meow(); // TypeScript sait que c'est un Cat
+    animal.meow();  // TypeScript sait que c'est un Cat
   }
 }
 ```
 
-**Point clé** : Le prédicat `animal is Dog` informe TypeScript que si la fonction retourne `true`, alors le paramètre est garanti d'être de type `Dog`.
+#### 💡 Décryptage de l'implémentation
+
+**`animal is Dog`** : Prédicat de type qui informe TypeScript du résultat. Si la fonction retourne `true`, alors `animal` est garanti d'être de type `Dog`.
+
+**`if (isDog(animal))`** : TypeScript **réduit** le type de `animal` à `Dog` dans le bloc `if`. Dans le `else`, TypeScript déduit automatiquement que c'est un `Cat`.
+
+**Bénéfice** : Sécurité à la compilation pour des vérifications faites à l'exécution. Évite les cast dangereux.
 
 ---
 
@@ -193,8 +447,8 @@ import { RouterModule } from '@angular/router';
 
 @Component({
   selector: 'app-user-list',
-  standalone: true,
-  imports: [CommonModule, RouterModule], // Imports directs
+  standalone: true,                          // Composant autonome
+  imports: [CommonModule, RouterModule],     // Imports directs
   template: `
     <div *ngFor="let user of users">{{ user.name }}</div>
   `
@@ -204,10 +458,15 @@ export class UserListComponent {
 }
 ```
 
-**Points clés** :
-- Les Standalone Components déclarent directement leurs dépendances via `imports`
-- Amélioration du tree-shaking : seuls les modules réellement utilisés sont inclus
-- Simplification de l'architecture : plus besoin de NgModules intermédiaires
+#### 💡 Décryptage de l'implémentation
+
+**`standalone: true`** : Indique qu'Angular doit traiter ce composant comme autonome, sans NgModule. Permet découpage plus fin du code et meilleur tree-shaking.
+
+**`imports: [CommonModule, RouterModule]`** : Les Standalone Components déclarent **directement** leurs dépendances. Fini les NgModules intermédiaires qui importent tout ! Seuls les modules réellement nécessaires sont importés.
+
+**Bénéfice** : Webpack peut éliminer le code mort plus efficacement. Bundle size réduit.
+
+---
 
 #### 2.2 Nouveau Control Flow (@if, @for, @switch)
 
@@ -216,17 +475,14 @@ Explorons la nouvelle syntaxe de Control Flow d'Angular 17+ pour améliorer les 
 ```typescript
 @Component({
   template: `
-    <!-- Ancien -->
-    <div *ngIf="user">{{ user.name }}</div>
-    
-    <!-- Nouveau (Angular 17+) -->
+    <!-- Nouveau Control Flow (Angular 17+) -->
     @if (user) {
       <div>{{ user.name }}</div>
     } @else {
       <div>Chargement...</div>
     }
     
-    <!-- Boucle -->
+    <!-- Boucle avec track obligatoire -->
     @for (user of users; track user.id) {
       <div>{{ user.name }}</div>
     }
@@ -235,10 +491,15 @@ Explorons la nouvelle syntaxe de Control Flow d'Angular 17+ pour améliorer les 
 export class UserComponent {}
 ```
 
-**Points clés** :
-- Syntaxe `@if` / `@for` / `@switch` : plus performante que `*ngIf` / `*ngFor`
-- Le `track` dans `@for` est obligatoire et optimise le rendu
-- Amélioration de la lisibilité du template
+#### 💡 Décryptage de l'implémentation
+
+**`@if (user) { ... } @else { ... }`** : Nouvelle syntaxe de condition. Plus performante que `*ngIf` car compilée nativement par Angular au lieu de passer par des directives structurelles.
+
+**`@for (user of users; track user.id)`** : Nouvelle syntaxe de boucle. Le `track` est **obligatoire**, forçant à spécifier comment identifier chaque élément. Angular réutilise les nœuds DOM existants au lieu de tout recréer.
+
+**Performance** : ~20-30% plus rapide que `*ngIf` / `*ngFor` selon les benchmarks Angular.
+
+---
 
 #### 2.3 API Signals (signal, computed, effect)
 
@@ -270,16 +531,22 @@ export class CounterComponent {
   }
   
   increment() {
-    this.count.update(c => c + 1);
+    this.count.update(c => c + 1);  // Mise à jour immutable
   }
 }
 ```
 
-**Points clés** :
-- `signal()` crée un état writable modifiable via `.set()` ou `.update()`
-- `computed()` crée un état dérivé readonly qui se recalcule automatiquement
-- `effect()` exécute du code à chaque changement des Signals utilisés
-- Angular construit un graphe de dépendances pour une détection fine
+#### 💡 Décryptage de l'implémentation
+
+**`count = signal(0)`** : Crée un Signal writable avec valeur initiale `0`. Pour lire : `count()`. Pour modifier : `.set()` ou `.update()`. Notifie automatiquement Angular des changements.
+
+**`double = computed(() => this.count() * 2)`** : Signal **dérivé** readonly qui se recalcule automatiquement quand `count` change. Angular construit un graphe de dépendances.
+
+**`effect(() => { ... })`** : Exécute un effet de bord à chaque changement des Signals utilisés. Angular track automatiquement les dépendances.
+
+**Performance** : Détection fine-grained. Seuls les éléments du template qui utilisent `count()` ou `double()` sont mis à jour.
+
+---
 
 #### 2.4 Interopérabilité RxJS / Signals
 
@@ -302,8 +569,8 @@ export class SearchComponent {
   // Observable → Signal (pour affichage dans template)
   results = toSignal(
     this.searchTerm$.pipe(
-      debounceTime(300),
-      switchMap(term => this.http.get(`/api/search?q=${term}`))
+      debounceTime(300),                     // Attente 300ms d'inactivité
+      switchMap(term => this.http.get(`/api/search?q=${term}`))  // Annule requête précédente
     ),
     { initialValue: [] }
   );
@@ -312,10 +579,17 @@ export class SearchComponent {
 }
 ```
 
-**Points clés** :
-- `toSignal()` : Observable → Signal (pour afficher des données asynchrones)
-- `toObservable()` : Signal → Observable (pour utiliser opérateurs RxJS)
-- **Arbitrage** : Signals pour état local/synchrone, RxJS pour flux asynchrones complexes
+#### 💡 Décryptage de l'implémentation
+
+**`toObservable(this.searchTerm)`** : Convertit le Signal en Observable. Nécessaire pour utiliser les opérateurs RxJS comme `debounceTime` et `switchMap`.
+
+**`debounceTime(300)`** : Attend 300ms d'inactivité avant d'émettre. Évite 6 requêtes HTTP si l'utilisateur tape "laptop" rapidement. Économie bande passante.
+
+**`switchMap(...)`** : Annule la requête précédente quand une nouvelle arrive. Évite race conditions. Seul le résultat de la dernière recherche s'affiche.
+
+**`toSignal(..., { initialValue: [] })`** : Convertit l'Observable en Signal readonly pour le template. `initialValue` définit la valeur avant la première émission.
+
+**Arbitrage** : Signals pour état local/synchrone, RxJS pour flux asynchrones complexes.
 
 ---
 
@@ -331,12 +605,14 @@ Nous appliquerons les 5 principes SOLID dans nos composants et services :
 - **ISP** (Interface Segregation) : Interfaces spécifiques plutôt que monolithiques
 - **DIP** (Dependency Inversion) : Dépendre d'abstractions, non de concrétions
 
+---
+
 #### 3.2 Pattern Smart / Dumb Components
 
 Découvrons comment séparer les composants pour améliorer testabilité et réutilisabilité.
 
 ```typescript
-// DUMB Component (Presentational)
+// DUMB Component (Presentational) - Affichage pur
 @Component({
   selector: 'app-user-card',
   standalone: true,
@@ -348,11 +624,11 @@ Découvrons comment séparer les composants pour améliorer testabilité et réu
   `
 })
 export class UserCardComponent {
-  user = input.required<User>();
-  onDelete = output<number>();
+  user = input.required<User>();      // Input Signal (Angular 17+)
+  onDelete = output<number>();        // Output (Angular 17+)
 }
 
-// SMART Component (Container)
+// SMART Component (Container) - Logique métier
 @Component({
   selector: 'app-user-list',
   standalone: true,
@@ -366,16 +642,29 @@ export class UserCardComponent {
 export class UserListComponent {
   users = signal<User[]>([]);
   
+  constructor(private userService: UserService) {}
+  
   deleteUser(id: number) {
-    this.userService.delete(id);
+    this.userService.delete(id);    // Appel service
   }
 }
 ```
 
-**Points clés** :
-- **Dumb** : Affichage uniquement, reçoit données via `input()`, émet via `output()`
-- **Smart** : Gère la logique métier, les services, orchestre les Dumb Components
-- **Avantages** : Testabilité accrue, réutilisabilité maximale
+#### 💡 Décryptage de l'implémentation
+
+**DUMB Component** :
+- `input.required<User>()` : Signal readonly recevant les données du parent. `required` force le parent à fournir cette valeur.
+- `output<number>()` : Remplace `@Output() onDelete = new EventEmitter()`. Plus simple et type-safe.
+- **Responsabilité** : Affichage pur. Pas de logique métier, pas d'appel HTTP, pas de state management.
+
+**SMART Component** :
+- `users = signal<User[]>([])` : État local géré par le Smart Component.
+- `deleteUser(id)` : Logique métier, appelle le service.
+- **Responsabilité** : Orchestre les interactions entre Dumb Components et Services.
+
+**Bénéfice** : Dumb = réutilisable partout, testable facilement. Smart = spécifique, gère la complexité.
+
+---
 
 #### 3.3 Packaging de Librairies (ng-packagr, APF)
 
@@ -384,6 +673,8 @@ Nous créerons et packagerons une librairie Angular selon l'Angular Package Form
 - **ng-packagr** : Outil qui compile la librairie selon l'APF
 - **Angular Package Format (APF)** : Standard garantissant compatibilité (ESM, FESM, UMD)
 - **Peer Dependencies** : Dépendances partagées avec l'application consommatrice
+
+---
 
 #### 3.4 Workspaces Monorepo (Nx)
 
@@ -405,7 +696,7 @@ Explorons comment optimiser les performances avec la stratégie OnPush.
 ```typescript
 @Component({
   selector: 'app-optimized',
-  changeDetection: ChangeDetectionStrategy.OnPush,
+  changeDetection: ChangeDetectionStrategy.OnPush,  // Optimisation critique
   template: `<p>{{ data().value }}</p>`
 })
 export class OptimizedComponent {
@@ -413,11 +704,17 @@ export class OptimizedComponent {
 }
 ```
 
-**Points clés** :
-- **Zone.js** : Intercepte les événements asynchrones pour déclencher la détection
-- **Stratégie Default** : Vérifie tout l'arbre à chaque événement (coûteux)
-- **Stratégie OnPush** : Vérifie uniquement si les `@Input()` changent (référence)
-- **Optimisation** : OnPush réduit drastiquement le nombre de vérifications
+#### 💡 Décryptage de l'implémentation
+
+**`ChangeDetectionStrategy.OnPush`** : Indique à Angular de ne vérifier ce composant que si ses inputs changent (référence), ou si un événement interne se produit. Par défaut, Angular vérifie TOUS les composants à chaque événement.
+
+**Impact** : Sur une app avec 100 composants, un click peut déclencher 100 vérifications. Avec OnPush, on réduit à 5-10 vérifications. **Gain** : 10x plus rapide.
+
+**Contrainte** : Les inputs doivent être **immutables**. Créer un nouvel objet au lieu de muter : `data = { value: 'nouveau' }`.
+
+**Avec Signals** : OnPush + Signals = combinaison parfaite. Les Signals notifient automatiquement Angular.
+
+---
 
 #### 4.2 Lazy Loading
 
@@ -427,15 +724,21 @@ Nous découperons l'application en bundles chargés à la demande.
 const routes: Routes = [
   {
     path: 'admin',
-    loadComponent: () => import('./admin/admin.component').then(m => m.AdminComponent)
+    loadComponent: () => import('./admin/admin.component')
+      .then(m => m.AdminComponent)  // Import dynamique
   }
 ];
 ```
 
-**Points clés** :
-- **Code Splitting** : Webpack découpe automatiquement le code en bundles
-- **loadComponent()** : Charge un Standalone Component à la demande
-- **Preloading Strategies** : Stratégies pour précharger en arrière-plan
+#### 💡 Décryptage de l'implémentation
+
+**`loadComponent: () => import(...)`** : Fonction qui retourne une Promise du composant. Angular ne charge pas le composant au démarrage, mais **uniquement** quand l'utilisateur navigue vers `/admin`.
+
+**`import('./admin/admin.component')`** : Import dynamique ES6. Webpack détecte automatiquement ce `import()` et crée un bundle séparé (ex: `admin-component.chunk.js`).
+
+**Bénéfice** : Bundle initial réduit de 30-40%. Si l'admin représente 200 KB, l'utilisateur qui ne va jamais en admin n'a pas à télécharger ces 200 KB.
+
+---
 
 #### 4.3 Prévention des Fuites Mémoire
 
@@ -448,16 +751,19 @@ Découvrons comment détecter et prévenir les fuites mémoire.
 export class SafeComponent {
   ngOnInit() {
     this.userService.getUsers()
-      .pipe(takeUntilDestroyed()) // Angular 16+
+      .pipe(takeUntilDestroyed())  // Désouscription automatique
       .subscribe(users => console.log(users));
   }
 }
 ```
 
-**Points clés** :
-- `takeUntilDestroyed()` (Angular 16+) : Se désouscrit automatiquement
-- `takeUntil()` : Pattern classique avec Subject
-- `async pipe` : Se désouscrit automatiquement (recommandé)
+#### 💡 Décryptage de l'implémentation
+
+**`takeUntilDestroyed()`** : Opérateur RxJS (Angular 16+) qui se désouscrit automatiquement quand le composant est détruit. Plus besoin de gérer manuellement dans `ngOnDestroy()`.
+
+**Problème sans** : Si l'Observable continue d'émettre après destruction, le callback s'exécute quand même. Le composant détruit reste en mémoire (fuite). Après 10 navigations, 10 instances mortes consomment de la RAM.
+
+**Alternative** : Utiliser `async pipe` dans le template : `{{ users$ | async }}`. L'async pipe se désouscrit automatiquement (méthode recommandée).
 
 ---
 
@@ -470,21 +776,30 @@ Observons comment créer un service de gestion d'état réactif avec Signals.
 ```typescript
 @Injectable({ providedIn: 'root' })
 export class UserStateService {
+  // État privé writable
   private usersState = signal<User[]>([]);
   
-  // Readonly pour l'extérieur
+  // Exposition readonly vers l'extérieur
   users = this.usersState.asReadonly();
   
   addUser(user: User) {
+    // Mise à jour immutable
     this.usersState.update(users => [...users, user]);
   }
 }
 ```
 
-**Points clés** :
-- **Encapsulation** : Exposer un Signal readonly, muter via méthodes publiques
-- **Immutabilité** : Utiliser spread operator `[...users, user]`
-- **Simplicité** : Approche légère pour états simples
+#### 💡 Décryptage de l'implémentation
+
+**`private usersState = signal<User[]>([])`** : Signal writable **privé**. L'état ne peut être modifié que de l'intérieur du service, via des méthodes publiques. Garantit l'encapsulation.
+
+**`users = this.usersState.asReadonly()`** : Exposition d'un Signal **readonly** vers l'extérieur. Les composants peuvent lire `users()`, mais pas le modifier directement. Pattern similaire à Redux.
+
+**`this.usersState.update(users => [...users, user])`** : Mise à jour **immutable**. Ne pas faire `users.push(user)`, créer un nouveau tableau avec spread operator. Crucial pour OnPush et tracking des changements.
+
+**Bénéfice** : State management simple et type-safe sans librairie externe. Idéal pour états petits/moyens.
+
+---
 
 #### 5.2 NgRx Classique et SignalStore
 
@@ -500,68 +815,101 @@ Nous comparerons les approches NgRx classique et SignalStore pour le state manag
 
 Observons un problème de race condition. Si on utilise `mergeMap()` pour une barre de recherche, toutes les requêtes partent en parallèle sans annulation.
 
-L'utilisateur tape "laptop" (6 lettres). Cela déclenche 6 requêtes HTTP : "l", "la", "lap", "lapt", "lapto", "laptop".
-
-À cause de la latence réseau, les réponses arrivent dans le désordre. Le résultat affiché peut être "lapt" au lieu de "laptop".
+L'utilisateur tape "laptop" (6 lettres). Cela déclenche 6 requêtes HTTP : "l", "la", "lap", "lapt", "lapto", "laptop". À cause de la latence réseau, les réponses arrivent dans le désordre. Le résultat affiché peut être "lapt" au lieu de "laptop".
 
 ```typescript
-// Code fragile
+// Code fragile : toutes les requêtes partent en parallèle
 searchTerm$.pipe(
   mergeMap(term => this.http.get(`/search?q=${term}`))
 )
-// Toutes les requêtes partent → race condition
+// ❌ Race condition : la réponse "lapt" peut arriver après "laptop"
 ```
+
+---
 
 **🟢 GAIN — Comment corriger ?**
 
-Utilisons `switchMap()` à la place. Quand une nouvelle valeur arrive, il annule la requête précédente. Seule la dernière requête aboutit.
+Utilisons `switchMap()` à la place.
 
 ```typescript
-// Solution pour typeahead
+// Solution pour typeahead : annulation automatique
 searchTerm$.pipe(
   switchMap(term => this.http.get(`/search?q=${term}`))
 )
-// Les requêtes "l", "la", "lap", "lapt", "lapto" sont annulées
-// Seule "laptop" aboutit
+// ✅ Les requêtes "l", "la", "lap", "lapt", "lapto" sont annulées
+// ✅ Seule "laptop" aboutit
 ```
 
-**💎 Les 4 opérateurs Higher-Order** :
+#### 💡 Décryptage de l'implémentation
 
-1. **switchMap** : Annule la précédente → Use-case : typeahead search
-2. **mergeMap** : Parallèle sans annulation → Use-case : batch loading
-3. **concatMap** : Séquentiel garanti → Use-case : file d'attente
-4. **exhaustMap** : Ignore pendant traitement → Use-case : anti double-click
+**`mergeMap(...)`** : Lance toutes les requêtes en parallèle sans annulation. Les 6 requêtes pour "l", "la", "lap"... sont toutes actives en même temps. La réponse "lapt" peut arriver après "laptop" et écraser le bon résultat.
+
+**`switchMap(...)`** : **Annule** la requête précédente quand une nouvelle valeur arrive. Seule la dernière requête aboutit. Quand l'utilisateur tape "a" après "l", la requête pour "l" est annulée (abort HTTP).
+
+**Les 4 opérateurs Higher-Order** :
+1. **switchMap** : Annule la précédente → Typeahead search, autocomplete
+2. **mergeMap** : Parallèle sans annulation → Batch loading indépendant
+3. **concatMap** : Séquentiel garanti → Upload de fichiers dans l'ordre
+4. **exhaustMap** : Ignore pendant traitement → Anti double-click sur bouton submit
+
+---
 
 #### 6.2 Guards Fonctionnels
 
 Nous protégerons les routes avec des Guards fonctionnels modernes.
 
 ```typescript
+// Guard fonctionnel (Angular 15+)
 export const authGuard: CanActivateFn = (route, state) => {
-  const authService = inject(AuthService);
-  return authService.isAuthenticated() || inject(Router).createUrlTree(['/login']);
+  const authService = inject(AuthService);      // Injection fonctionnelle
+  const router = inject(Router);
+  
+  return authService.isAuthenticated() 
+    || router.createUrlTree(['/login']);        // Redirection si non authentifié
 };
 
-// Utilisation
+// Utilisation dans routes
 { path: 'admin', canActivate: [authGuard], component: AdminComponent }
 ```
+
+#### 💡 Décryptage de l'implémentation
+
+**`CanActivateFn`** : Type fonction pour les guards modernes (Angular 15+). Remplace les guards basés sur des classes. Plus simple.
+
+**`inject(AuthService)`** : Injection de dépendances fonctionnelle. Plus besoin de constructeur. Fonctionne uniquement dans le contexte d'injection Angular.
+
+**`router.createUrlTree(['/login'])`** : Si non authentifié, retourne un `UrlTree` qui redirige vers `/login`. Angular gère automatiquement la redirection.
+
+---
 
 #### 6.3 Interceptors HTTP Fonctionnels
 
 Nous intercepterons les requêtes HTTP pour ajouter automatiquement les tokens JWT.
 
 ```typescript
+// Interceptor fonctionnel (Angular 15+)
 export const authInterceptor: HttpInterceptorFn = (req, next) => {
   const authService = inject(AuthService);
   const token = authService.getToken();
   
+  // Clone immutable avec header Authorization
   const authReq = req.clone({
     setHeaders: { Authorization: `Bearer ${token}` }
   });
   
-  return next(authReq);
+  return next(authReq);  // Passe au prochain interceptor ou serveur
 };
 ```
+
+#### 💡 Décryptage de l'implémentation
+
+**`HttpInterceptorFn`** : Type fonction pour les interceptors modernes (Angular 15+). Remplace les interceptors basés sur des classes.
+
+**`req.clone({ setHeaders: { ... } })`** : Les requêtes HTTP sont **immutables**. Impossible de faire `req.headers.set()`. Il faut cloner la requête et fournir les nouvelles headers.
+
+**`next(authReq)`** : Passe la requête modifiée au prochain interceptor ou au serveur. On peut chaîner plusieurs interceptors.
+
+**Use-case** : Centraliser l'ajout du token JWT. Chaque requête HTTP inclura automatiquement le header d'authentification.
 
 ---
 
@@ -639,110 +987,7 @@ Utilisez cette grille pour évaluer votre niveau actuel. Notez-vous honnêtement
 
 ---
 
-## � CONFIGURATION INITIALE DE VOTRE ENVIRONNEMENT
-
-Avant de démarrer la formation, vous devez récupérer le code de formation sur votre machine locale.
-
-### Étape 1 : Vérifier les prérequis système
-
-Assurez-vous d'avoir installé sur votre machine :
-
-```bash
-# Vérifier Node.js (version 18+ requise)
-node --version
-
-# Vérifier pnpm (doit être installé globalement)
-pnpm --version
-
-# Si pnpm n'est pas installé, exécutez :
-npm install -g pnpm
-
-# Vérifier Git
-git --version
-```
-
-**Versions recommandées** :
-- Node.js : 18.x ou 20.x
-- pnpm : 8.x ou 9.x
-- Git : 2.x
-
----
-
-### Étape 2 : Cloner le dépôt de formation
-
-Ouvrez un terminal et exécutez les commandes suivantes :
-
-```bash
-# Choisir le dossier où vous voulez installer la formation
-cd C:\dev\formations
-# Ou sur Mac/Linux : cd ~/dev/formations
-
-# Cloner le dépôt GitHub
-git clone https://github.com/mounirelouali/ang-archi-lib.git
-
-# Entrer dans le dossier
-cd ang-archi-lib
-```
-
-**Structure du projet cloné** :
-```
-ang-archi-lib/
-├── 01_Demo_Formateur/          # Code des démonstrations live
-├── 02_Atelier_Stagiaires/      # Vos ateliers pratiques
-│   └── J0_Prerequis/           # Ce document
-└── 03_Solutions_Zippees/       # Solutions finales (disponibles en fin de session)
-```
-
----
-
-### Étape 3 : Vérifier la configuration Git
-
-```bash
-# Vérifier votre identité Git (importante pour les commits)
-git config --global user.name "Votre Nom"
-git config --global user.email "votre.email@example.com"
-
-# Vérifier que le remote est correctement configuré
-git remote -v
-# Doit afficher :
-# origin  https://github.com/mounirelouali/ang-archi-lib.git (fetch)
-# origin  https://github.com/mounirelouali/ang-archi-lib.git (push)
-```
-
----
-
-### Étape 4 : Récupérer les mises à jour pendant la formation
-
-Pendant les 3 jours de formation, le formateur ajoutera du contenu au dépôt. Pour récupérer ces mises à jour :
-
-```bash
-# Depuis le dossier ang-archi-lib
-git pull origin main
-```
-
-**Conseil** : Exécutez cette commande au début de chaque session pour avoir le contenu le plus récent.
-
----
-
-### Étape 5 : Ouvrir le projet dans votre IDE
-
-```bash
-# Ouvrir avec Visual Studio Code
-code .
-
-# Ou ouvrir avec WebStorm
-idea .
-```
-
-**Extensions VS Code recommandées** :
-- Angular Language Service
-- ESLint
-- Prettier
-- GitLens
-
----
-
-## �🚀 PROCHAINES ÉTAPES
+## 🚀 PROCHAINES ÉTAPES
 
 **Avant le Jour 1** :
 
@@ -772,4 +1017,5 @@ Vous scaffolderez un workspace Nx complet avec pnpm et créerez votre première 
 
 ---
 
+**Bon courage et bienvenue dans cette formation ANG-ARCHI-LIB ! 🚀**
 **Bon courage et bienvenue dans cette formation ANG-ARCHI-LIB ! 🚀**
