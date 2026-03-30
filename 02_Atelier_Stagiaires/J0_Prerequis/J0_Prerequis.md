@@ -97,8 +97,11 @@ git config --global --list
 
 ---
 
-### Étape 2 : Cloner le dépôt de formation
+### Étape 2 : Créer le workspace de formation FROM SCRATCH
 
+**⚠️ Important** : Si votre environnement réseau bloque l'accès à GitHub (ports bloqués, proxy restrictif), nous allons créer le workspace **manuellement** avec le formateur.
+
+**Option A - Environnement avec accès GitHub** :
 ```bash
 # Choisir le dossier où installer la formation
 cd C:\dev\formations
@@ -111,66 +114,52 @@ git clone https://github.com/mounirelouali/ang-archi-lib.git
 cd ang-archi-lib
 ```
 
-**Structure du projet cloné** :
-```
-ang-archi-lib/                       # Dossier créé par git clone
-├── 01_Demo_Formateur/               # Code des démonstrations live
-├── 02_Atelier_Stagiaires/           # Vos ateliers pratiques
-│   ├── enterprise-workspace/        # ✅ RACINE UNIQUE (node_modules partagé J0-J3)
-│   │   ├── package.json             # ✅ UNIQUE package.json
-│   │   ├── node_modules/            # ✅ UNIQUE dépendances (après pnpm install)
-│   │   └── libs/
-│   │       └── j0-examples/         # Exemples J0 TypeScript
-│   │           ├── project.json
-│   │           └── src/
-│   │               ├── 01-generics.ts
-│   │               ├── 02-utility-types.ts
-│   │               ├── 03-mapped-types.ts
-│   │               └── 04-type-guards.ts
-│   └── J0_Prerequis/
-│       └── J0_Prerequis.md          # Ce document
-└── 03_Solutions_Zippees/            # Solutions finales
+**Option B - Environnement réseau bloqué (création manuelle)** :
+
+Le formateur va vous guider pour créer le workspace pas-à-pas :
+
+```powershell
+# 1. Créer la structure de dossiers
+New-Item -Path "D:\formation\ang-archi-lib" -ItemType Directory -Force
+New-Item -Path "D:\formation\ang-archi-lib\02_Atelier_Stagiaires" -ItemType Directory -Force
+
+# 2. Naviguer vers le dossier
+cd D:\formation\ang-archi-lib\02_Atelier_Stagiaires
+
+# 3. Créer le workspace Nx (suivre les instructions du formateur)
+npx create-nx-workspace@latest enterprise-workspace `
+  --preset=angular-monorepo `
+  --appName=showcase-app `
+  --style=scss `
+  --nxCloud=skip `
+  --packageManager=pnpm `
+  --interactive=false
+
+# 4. Le formateur vous guidera pour créer les fichiers d'exemples J0
 ```
 
-**⚠️ Important** : Le dossier `00_Preparation_Secrete_IA/` n'est **pas** sur GitHub (dossier privé formateur uniquement).
-
+**Structure du workspace créé** :
+```
+D:\formation\ang-archi-lib\
+└── 02_Atelier_Stagiaires/
+    └── enterprise-workspace/        # ✅ Workspace Nx créé
+        ├── package.json             # ✅ UNIQUE package.json racine
+        ├── node_modules/            # ✅ UNIQUE dépendances (après pnpm install)
+        ├── apps/
+        │   └── showcase-app/        # Application de démonstration
+        └── libs/
+            └── j0-examples/         # Exemples J0 TypeScript (créés avec le formateur)
+                ├── project.json
+                └── src/
+                    ├── 01-generics.ts
+                    ├── 02-utility-types.ts
+                    ├── 03-mapped-types.ts
+                    └── 04-type-guards.ts
+```
 
 ---
 
-### Étape 3 : Vérifier la configuration Git
-
-```bash
-# Vérifier votre identité Git
-git config --global user.name "Votre Nom"
-git config --global user.email "votre.email@example.com"
-
-# Vérifier que le remote est correctement configuré
-git remote -v
-# Doit afficher :
-# origin  https://github.com/mounirelouali/ang-archi-lib.git (fetch)
-# origin  https://github.com/mounirelouali/ang-archi-lib.git (push)
-```
-
----
-
-### Étape 4 : Récupérer les mises à jour pendant la formation
-
-Pendant les 3 jours de formation, le formateur ajoutera du contenu au dépôt. Pour récupérer ces mises à jour :
-
-```bash
-# Depuis n'importe quel sous-dossier du projet
-git pull origin main
-
-# Exemple concret :
-cd C:\dev\formations\ang-archi-lib
-git pull origin main
-```
-
-**Conseil** : Exécutez cette commande au début de chaque session pour avoir le contenu le plus récent.
-
----
-
-### Étape 5 : Ouvrir le projet dans votre IDE
+### Étape 3 : Ouvrir le projet dans votre IDE
 
 ```bash
 # Ouvrir avec Visual Studio Code

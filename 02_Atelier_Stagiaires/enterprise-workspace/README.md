@@ -1,117 +1,101 @@
-# 🎯 Enterprise Workspace - Formation ANG-ARCHI-LIB
+# EnterpriseWorkspace
 
-**Architecture** : Nx Integrated Monorepo avec pnpm  
-**Portée** : **Formation complète J0 → J3**  
-**Principe** : **1 seul `node_modules`** pour toutes les sessions
+<a alt="Nx logo" href="https://nx.dev" target="_blank" rel="noreferrer"><img src="https://raw.githubusercontent.com/nrwl/nx/master/images/nx-logo.png" width="45"></a>
 
-## 📁 Structure Globale
+✨ Your new, shiny [Nx workspace](https://nx.dev) is ready ✨.
 
-```
-enterprise-workspace/                    # ✅ RACINE UNIQUE
-├── package.json                         # ✅ UNIQUE package.json (toute formation)
-├── node_modules/                        # ✅ UNIQUE dossier dépendances
-├── nx.json                              # Configuration Nx
-├── tsconfig.base.json                   # TypeScript partagé
-├── libs/
-│   └── j0-examples/                     # Exemples J0 Prérequis
-│       ├── project.json                 # ❌ PAS de package.json
-│       └── src/
-│           ├── 01-generics.ts
-│           ├── 02-utility-types.ts
-│           ├── 03-mapped-types.ts
-│           └── 04-type-guards.ts
-└── apps/                                # Applications futures (J1, J2, J3)
-    └── (à venir selon sessions)
+[Learn more about this workspace setup and its capabilities](https://nx.dev/getting-started/tutorials/angular-monorepo-tutorial?utm_source=nx_project&amp;utm_medium=readme&amp;utm_campaign=nx_projects) or run `npx nx graph` to visually explore what was created. Now, let's get you up to speed!
+
+## Run tasks
+
+To run the dev server for your app, use:
+
+```sh
+npx nx serve host-app
 ```
 
-## ✅ Architecture Validée
+To create a production bundle:
 
-**Conformité Directive** :
-- ✅ 1 seul `package.json` à la racine de `02_Atelier_Stagiaires/enterprise-workspace`
-- ✅ 1 seul `node_modules` partagé entre **toutes les sessions** (J0-J3)
-- ✅ Pas de `package.json` dans les libs/apps
-- ✅ Nx Integrated Monorepo avec pnpm
-- ✅ Évolutif pour J1, J2, J3 (ajout de apps/libs sans nouveau node_modules)
-
-## ⚙️ Installation
-
-```bash
-# Depuis la racine du dépôt cloné
-cd ANGULAR_UI_KIT_ESPACE_STAGIAIRES/02_Atelier_Stagiaires/enterprise-workspace
-
-# Installer les dépendances (1 seul node_modules créé)
-pnpm install
+```sh
+npx nx build host-app
 ```
 
-**Résultat** : Un seul `node_modules` à la racine de `enterprise-workspace`.
+To see all available targets to run for a project, run:
 
-## 🚀 Exécution - Session J0 (Prérequis)
-
-### Exemples TypeScript individuels
-
-```bash
-# 1.1 Generics
-pnpm j0:ts:generics
-
-# 1.2 Utility Types
-pnpm j0:ts:utility
-
-# 1.3 Mapped Types
-pnpm j0:ts:mapped
-
-# 1.4 Type Guards
-pnpm j0:ts:guards
+```sh
+npx nx show project host-app
 ```
 
-### Tous les exemples J0
+These targets are either [inferred automatically](https://nx.dev/concepts/inferred-tasks?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects) or defined in the `project.json` or `package.json` files.
 
-```bash
-# Exécuter tous les exemples TypeScript J0
-pnpm j0:ts:all
+[More about running tasks in the docs &raquo;](https://nx.dev/features/run-tasks?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects)
+
+## Add new projects
+
+While you could add new projects to your workspace manually, you might want to leverage [Nx plugins](https://nx.dev/concepts/nx-plugins?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects) and their [code generation](https://nx.dev/features/generate-code?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects) feature.
+
+Use the plugin's generator to create new projects.
+
+To generate a new application, use:
+
+```sh
+npx nx g @nx/angular:app demo
 ```
 
-## 🔍 Commandes Nx Directes
+To generate a new library, use:
 
-```bash
-# Via Nx (équivalent)
-nx run j0-examples:generics
-nx run j0-examples:utility
-nx run j0-examples:mapped
-nx run j0-examples:guards
-
-# Tous en séquence
-nx run-many -t run-all -p j0-examples
+```sh
+npx nx g @nx/angular:lib mylib
 ```
 
-## 🚀 Évolution Future
+You can use `npx nx list` to get a list of installed plugins. Then, run `npx nx list <plugin-name>` to learn about more specific capabilities of a particular plugin. Alternatively, [install Nx Console](https://nx.dev/getting-started/editor-setup?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects) to browse plugins and generators in your IDE.
 
-### Jour 1 (J1) - Exemple d'ajout
+[Learn more about Nx plugins &raquo;](https://nx.dev/concepts/nx-plugins?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects) | [Browse the plugin registry &raquo;](https://nx.dev/plugin-registry?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects)
 
-```bash
-# Créer une app Angular pour J1
-nx g @nx/angular:app j1-demo
+## Set up CI!
 
-# Résultat : apps/j1-demo (sans package.json, utilise le node_modules racine)
+### Step 1
+
+To connect to Nx Cloud, run the following command:
+
+```sh
+npx nx connect
 ```
 
-### Jour 2 (J2) - Exemple de lib partagée
+Connecting to Nx Cloud ensures a [fast and scalable CI](https://nx.dev/ci/intro/why-nx-cloud?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects) pipeline. It includes features such as:
 
-```bash
-# Créer une lib UI partagée
-nx g @nx/angular:lib ui-kit
+- [Remote caching](https://nx.dev/ci/features/remote-cache?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects)
+- [Task distribution across multiple machines](https://nx.dev/ci/features/distribute-task-execution?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects)
+- [Automated e2e test splitting](https://nx.dev/ci/features/split-e2e-tasks?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects)
+- [Task flakiness detection and rerunning](https://nx.dev/ci/features/flaky-tasks?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects)
 
-# Résultat : libs/ui-kit (sans package.json, utilise le node_modules racine)
+### Step 2
+
+Use the following command to configure a CI workflow for your workspace:
+
+```sh
+npx nx g ci-workflow
 ```
 
-**Principe** : Chaque session ajoute des apps/libs dans ce workspace unique, **jamais** de nouveau `node_modules`.
+[Learn more about Nx on CI](https://nx.dev/ci/intro/ci-with-nx#ready-get-started-with-your-provider?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects)
 
-## 💡 Avantages Architecture
+## Install Nx Console
 
-1. **Partage dépendances** : 1 seul Angular, RxJS, TypeScript pour J0-J3
-2. **Cache Nx global** : Build/test accélérés entre sessions
-3. **Import inter-sessions** : J2 peut importer depuis libs créées en J1
-4. **Gestion simplifiée** : 1 seul `pnpm install` pour toute la formation
+Nx Console is an editor extension that enriches your developer experience. It lets you run tasks, generate code, and improves code autocompletion in your IDE. It is available for VSCode and IntelliJ.
 
----
+[Install Nx Console &raquo;](https://nx.dev/getting-started/editor-setup?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects)
 
-**📖 Retour à** : `J0_Prerequis.md`
+## Useful links
+
+Learn more:
+
+- [Learn more about this workspace setup](https://nx.dev/getting-started/tutorials/angular-monorepo-tutorial?utm_source=nx_project&amp;utm_medium=readme&amp;utm_campaign=nx_projects)
+- [Learn about Nx on CI](https://nx.dev/ci/intro/ci-with-nx?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects)
+- [Releasing Packages with Nx release](https://nx.dev/features/manage-releases?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects)
+- [What are Nx plugins?](https://nx.dev/concepts/nx-plugins?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects)
+
+And join the Nx community:
+- [Discord](https://go.nx.dev/community)
+- [Follow us on X](https://twitter.com/nxdevtools) or [LinkedIn](https://www.linkedin.com/company/nrwl)
+- [Our Youtube channel](https://www.youtube.com/@nxdevtools)
+- [Our blog](https://nx.dev/blog?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects)

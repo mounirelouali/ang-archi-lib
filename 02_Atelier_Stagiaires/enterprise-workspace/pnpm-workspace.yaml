@@ -1,3 +1,12 @@
+autoInstallPeers: true
 ignoredBuiltDependencies:
   - esbuild
+onlyBuiltDependencies:
+  - '@parcel/watcher'
+  - '@swc/core'
+  - cypress
+  - less
+  - lmdb
+  - msgpackr-extract
   - nx
+  - unrs-resolver
