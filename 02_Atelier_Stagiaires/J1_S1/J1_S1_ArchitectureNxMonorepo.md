@@ -42,17 +42,17 @@ Nous allons créer ensemble un workspace Nx Angular optimisé pour pnpm et gén�
 
 Explorons la commande de création d'un workspace Nx Angular. Ouvrons un terminal et naviguons vers le dossier parent :
 
-```bash
+```powershell
 # Naviguer vers le dossier de formation
 cd D:\playground\ang-archi-lib\ANGULAR_UI_KIT_ESPACE_STAGIAIRES\01_Demo_Formateur
 
-# Créer le workspace Nx Angular avec pnpm
-npx create-nx-workspace@latest enterprise-nx-workspace \
-  --preset=angular-monorepo \
-  --appName=showcase-app \
-  --style=scss \
-  --nxCloud=skip \
-  --packageManager=pnpm \
+# Créer le workspace Nx Angular avec pnpm (PowerShell : backticks au lieu de backslash)
+npx create-nx-workspace@latest enterprise-nx-workspace `
+  --preset=angular-monorepo `
+  --appName=showcase-app `
+  --style=scss `
+  --nxCloud=skip `
+  --packageManager=pnpm `
   --interactive=false
 ```
 
@@ -117,19 +117,19 @@ enterprise-nx-workspace/
 
 Nous allons maintenant créer notre première librairie `@enterprise/ui-kit` qui contiendra nos composants réutilisables.
 
-```bash
+```powershell
 # Se positionner dans le workspace
 cd enterprise-nx-workspace
 
-# Générer une librairie Angular publishable
-npx nx generate @nx/angular:library ui-kit \
-  --directory=libs/ui-kit \
-  --publishable=true \
-  --importPath=@enterprise/ui-kit \
-  --style=scss \
-  --standalone=true \
-  --skipModule=true \
-  --prefix=ent \
+# Générer une librairie Angular publishable (PowerShell : backticks au lieu de backslash)
+npx nx generate @nx/angular:library ui-kit `
+  --directory=libs/ui-kit `
+  --publishable=true `
+  --importPath=@enterprise/ui-kit `
+  --style=scss `
+  --standalone=true `
+  --skipModule=true `
+  --prefix=ent `
   --buildable=true
 ```
 
@@ -488,6 +488,73 @@ npx nx affected:build
 **❌ Problème** : `nx build ui-kit` échoue avec erreur ng-packagr
 
 **✅ Solution** : Vérifier que `publishable: true` est bien dans `libs/ui-kit/project.json`. Si absent, régénérer la librairie avec `--publishable=true`.
+
+---
+
+**❌ Problème** : Erreur `require() of ES Module` lors de la génération de librairie
+
+```
+Error: require() of ES Module .../node_modules/vite/dist/node/index.js not supported.
+Instead change the require of index.js to a dynamic import()
+```
+
+**✅ Solution** : Incompatibilité **Vite 7 + CommonJS**. Vite 7 est un module ES pur qui ne peut plus être chargé avec `require()`.
+
+**Correction à appliquer** :
+
+1. **Renommer les fichiers `vite.config.ts` en `vite.config.mts`** (extension `.mts` = TypeScript Module) :
+   ```powershell
+   # Depuis la racine du workspace
+   Move-Item libs/api/products/vite.config.ts libs/api/products/vite.config.mts
+   Move-Item apps/api/vite.config.ts apps/api/vite.config.mts
+   Move-Item libs/shared/models/vite.config.ts libs/shared/models/vite.config.mts
+   ```
+
+2. **Mettre à jour les références dans `project.json`** :
+   ```json
+   {
+     "build": {
+       "options": {
+         "configFile": "libs/api/products/vite.config.mts"  // .mts au lieu de .ts
+       }
+     }
+   }
+   ```
+
+**Pourquoi ça fonctionne** : L'extension `.mts` force Node.js à traiter le fichier comme un module ES, contournant la configuration CommonJS héritée des projets API.
+
+---
+
+**❌ Problème** : Erreur `Unknown argument: ui-kit` lors de la génération de librairie
+
+```
+npx nx generate @nx/angular:library ui-kit --directory=...
+Error: Unknown argument: ui-kit
+```
+
+**✅ Solution** : Dans les versions récentes de Nx, le **nom de la librairie doit être passé avec le flag `--name=`** :
+
+**Commande incorrecte** :
+```powershell
+npx nx generate @nx/angular:library ui-kit `
+  --directory=libs/ui-kit
+```
+
+**Commande correcte** :
+```powershell
+npx nx generate @nx/angular:library `
+  --name=ui-kit `
+  --directory=libs/ui-kit `
+  --publishable=true `
+  --importPath=@enterprise/ui-kit `
+  --style=scss `
+  --standalone=true `
+  --skipModule=true `
+  --prefix=ent `
+  --buildable=true
+```
+
+**Note** : Cette syntaxe est obligatoire pour éviter l'interprétation de `ui-kit` comme un argument positionnel non supporté.
 
 ---
 
