@@ -1,13 +1,102 @@
-<header class="enterprise-header">
-  <img
-    [src]="'/assets/ui-kit/logos/' + filiale() + '.png'"
-    [alt]="'Logo ' + filiale()"
-    class="logo"
-  />
+<nav class="navbar-main" [class.menu-open]="menuOpen()">
+  <div class="navbar-container">
+    <!-- Logo Filiale -->
+    <a class="navbar-brand" href="#home">
+      <img 
+        class="brand-logo" 
+        [src]="'/assets/ui-kit/logos/' + filiale() + '.png'" 
+        [alt]="'Logo ' + filiale()"
+      >
+    </a>
 
-  <span class="language-switcher">🌍 FR/EN</span>
+    <!-- Menu Burger Mobile -->
+    <button 
+      class="navbar-toggler" 
+      type="button"
+      (click)="toggleMenu()"
+      [attr.aria-expanded]="menuOpen()"
+      aria-label="Toggle navigation"
+    >
+      <span class="toggler-icon" [class.active]="menuOpen()">
+        <span class="line"></span>
+        <span class="line"></span>
+        <span class="line"></span>
+      </span>
+      <span class="toggler-label">Menu</span>
+    </button>
 
-  @if (showProfile()) {
-    <button class="profile-button">Profil Utilisateur</button>
-  }
-</header>
+    <!-- Navigation Principale -->
+    <div class="navbar-collapse" [class.show]="menuOpen()">
+      <!-- Subnav (Language + Profile) -->
+      <div class="navbar-subnav">
+        <!-- Language Switcher -->
+        <div class="language-switcher">
+          <button 
+            class="lang-toggle"
+            (click)="toggleDropdown('language')"
+            [attr.aria-expanded]="isDropdownActive('language')"
+          >
+            🌍 {{ currentLang() }}
+          </button>
+          <ul class="lang-menu" [class.active]="isDropdownActive('language')">
+            @for (lang of languages; track lang) {
+              <li>
+                <a 
+                  (click)="switchLanguage(lang)"
+                  [class.selected]="currentLang() === lang"
+                >
+                  {{ lang }}
+                </a>
+              </li>
+            }
+          </ul>
+        </div>
+
+        <!-- Profile Button -->
+        @if (showProfile()) {
+          <a href="#profile" class="profile-link">
+            <svg class="profile-icon" viewBox="0 0 24 24" width="20" height="20">
+              <path fill="currentColor" d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/>
+            </svg>
+            Espace Client
+          </a>
+        }
+      </div>
+
+      <!-- Main Menu -->
+      <ul class="navbar-nav">
+        @for (item of navItems; track item.label) {
+          <li class="nav-item" [class.has-dropdown]="item.children">
+            @if (item.children) {
+              <!-- Dropdown Menu -->
+              <button
+                class="nav-link dropdown-toggle"
+                (click)="toggleDropdown(item.label)"
+                [attr.aria-expanded]="isDropdownActive(item.label)"
+              >
+                {{ item.label }}
+              </button>
+              <ul class="dropdown-menu" [class.active]="isDropdownActive(item.label)">
+                @for (child of item.children; track child.label) {
+                  <li>
+                    <a class="dropdown-item" [href]="child.route">
+                      @if (child.icon) {
+                        <span class="item-icon">{{ child.icon }}</span>
+                      }
+                      {{ child.label }}
+                    </a>
+                  </li>
+                }
+              </ul>
+            } @else {
+              <!-- Simple Link -->
+              <a class="nav-link" [href]="item.route">
+                {{ item.label }}
+              </a>
+            }
+          </li>
+        }
+      </ul>
+    </div>
+  </div>
+</nav>
