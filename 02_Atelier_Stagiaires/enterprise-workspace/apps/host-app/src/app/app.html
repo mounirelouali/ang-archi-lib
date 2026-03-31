@@ -1,26 +1,85 @@
 <lib-header filiale="Terminals" [showProfile]="true"></lib-header>
 
-<main style="padding: 2rem; max-width: 800px;">
-  <h1>Bienvenue sur l'App Host</h1>
+<main style="padding: 2rem; max-width: 1000px; margin: 0 auto;">
+  <h1 style="color: var(--materialm-primary); margin-bottom: 2rem;">Architecture Angular 18 - Démonstration</h1>
   
-  <section style="margin: 2rem 0;">
-    <h2>Démonstration LibInputComponent (Signals API)</h2>
+  <!-- Section LibInput Component -->
+  <article style="margin: 3rem 0; padding: 2rem; background: white; border-radius: var(--materialm-border-radius); box-shadow: var(--materialm-shadow-lg);">
+    <header style="border-bottom: 3px solid var(--materialm-secondary); padding-bottom: 1rem; margin-bottom: 2rem;">
+      <h2 style="color: var(--materialm-secondary); font-size: 1.8rem; margin: 0;">
+        📦 LibInput
+      </h2>
+      <p style="color: var(--materialm-text-secondary); margin: 0.5rem 0 0 0; font-size: 0.95rem;">
+        Champ de formulaire intelligent, pré-stylé aux couleurs CFL (Gris/Vert/Rouge)
+      </p>
+    </header>
     
-    <lib-input
-      [(value)]="userInput"
-      label="Nom d'utilisateur"
-      placeholder="Entrez votre nom..."
-      [maxLength]="30"
-    />
+    <!-- User Stories Atelier J1 -->
+    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1.5rem; margin-bottom: 2rem;">
+      <div style="padding: 1.5rem; background: var(--materialm-light-secondary); border-radius: 12px; border-left: 4px solid var(--materialm-secondary);">
+        <h3 style="color: var(--materialm-secondary); font-size: 1rem; margin: 0 0 0.5rem 0; display: flex; align-items: center;">
+          <span style="margin-right: 0.5rem;">⚡</span> Signals API
+        </h3>
+        <p style="margin: 0; font-size: 0.9rem; line-height: 1.5;">
+          Remplacement de <code style="background: rgba(0,0,0,0.1); padding: 2px 6px; border-radius: 4px;">&#64;Input()</code> par 
+          <code style="background: rgba(0,0,0,0.1); padding: 2px 6px; border-radius: 4px;">input()</code> et 
+          <code style="background: rgba(0,0,0,0.1); padding: 2px 6px; border-radius: 4px;">model()</code>
+        </p>
+      </div>
+      
+      <div style="padding: 1.5rem; background: var(--materialm-light-info); border-radius: 12px; border-left: 4px solid var(--materialm-info);">
+        <h3 style="color: var(--materialm-info); font-size: 1rem; margin: 0 0 0.5rem 0; display: flex; align-items: center;">
+          <span style="margin-right: 0.5rem;">🔄</span> Réactivité
+        </h3>
+        <p style="margin: 0; font-size: 0.9rem; line-height: 1.5;">
+          Utilisation de <code style="background: rgba(0,0,0,0.1); padding: 2px 6px; border-radius: 4px;">computed()</code> pour réagir aux changements d'état sans 
+          <code style="background: rgba(0,0,0,0.1); padding: 2px 6px; border-radius: 4px;">ngOnChanges</code>
+        </p>
+      </div>
+      
+      <div style="padding: 1.5rem; background: var(--materialm-light-success); border-radius: 12px; border-left: 4px solid var(--materialm-success);">
+        <h3 style="color: var(--materialm-success); font-size: 1rem; margin: 0 0 0.5rem 0; display: flex; align-items: center;">
+          <span style="margin-right: 0.5rem;">🎨</span> Theming M3
+        </h3>
+        <p style="margin: 0; font-size: 0.9rem; line-height: 1.5;">
+          Application du Design System Material 3 customisé aux couleurs CFL
+        </p>
+      </div>
+    </div>
     
-    <p style="margin-top: 1rem; padding: 1rem; background-color: var(--materialm-light-secondary); border-radius: 8px;">
-      <strong>Valeur actuelle :</strong> {{ userInput() || '(vide)' }}
+    <!-- Démonstration Interactive -->
+    <div style="background: var(--materialm-bg-layout); padding: 2rem; border-radius: 12px;">
+      <h3 style="color: var(--materialm-primary); margin-top: 0;">Démonstration Interactive</h3>
+      
+      <lib-input
+        [(value)]="userInput"
+        label="Nom d'utilisateur"
+        placeholder="Saisissez votre nom..."
+        [maxLength]="30"
+      />
+      
+      <div style="margin-top: 1.5rem; padding: 1rem; background: white; border-radius: 8px; border: 1px solid var(--materialm-border-color);">
+        <strong style="color: var(--materialm-primary);">Valeur réactive (Signal) :</strong>
+        <code style="display: block; margin-top: 0.5rem; padding: 0.75rem; background: var(--materialm-light-primary); border-radius: 6px; font-size: 1rem;">
+          {{ userInput() || '(aucune valeur)' }}
+        </code>
+      </div>
+    </div>
+  </article>
+  
+  <!-- Section Test API -->
+  <article style="margin: 3rem 0; padding: 2rem; background: white; border-radius: var(--materialm-border-radius); box-shadow: var(--materialm-shadow-md);">
+    <h2 style="color: var(--materialm-primary); margin-top: 0;">🔐 Test Intercepteur JWT</h2>
+    <button 
+      (click)="testerAPI()" 
+      class="btn-api-test"
+    >
+      ▶ Tester l'API Sécurisée
+    </button>
+    <p style="margin-top: 1rem; color: var(--materialm-text-secondary); font-size: 0.9rem;">
+      Vérifiez la console du navigateur (F12) pour voir la réponse HTTP avec le header Authorization.
     </p>
-  </section>
-  
-  <button (click)="testerAPI()" style="margin: 2rem 0; padding: 1rem; cursor: pointer; background-color: var(--materialm-secondary); color: white; border: none; border-radius: 8px;">
-    Tester l'API Sécurisée
-  </button>
+  </article>
   
   <router-outlet></router-outlet>
 </main>
