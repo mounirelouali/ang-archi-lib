@@ -1,0 +1,19 @@
+<mat-form-field appearance="outline" class="lib-input-field">
+  <mat-label>{{ label() }}</mat-label>
+  
+  <input 
+    matInput 
+    [placeholder]="placeholder()"
+    [ngModel]="value()"
+    (ngModelChange)="value.set($event)"
+    [maxlength]="maxLength()"
+  />
+  
+  <mat-hint align="end" [class.error-hint]="hasError()">
+    {{ remainingChars() }} caractères restants
+  </mat-hint>
+  
+  @if (hasError()) {
+    <mat-error>Limite de {{ maxLength() }} caractères dépassée</mat-error>
+  }
+</mat-form-field>

@@ -14,25 +14,25 @@ $boxed-width: 1200px;
 $border-radius: 24px;
 $card-spacer: 24px;
 
-// Colors - Adapted for Angular 18 (sans variables Material 3 natives)
-$primary: #5d87ff;
-$secondary: #49beff;
-$accent: #49beff;
-$error: #fa896b;
-$warning: #ffae1f;
-$success: #00ceb6;
-$info: #539bff;
+// Colors - Identité CFL (Client)
+$primary: #58585a;     // Gris foncé CFL
+$secondary: #55b948;   // Vert CFL
+$accent: #55b948;      // Vert CFL
+$error: #b80031;       // Rouge CFL
+$warning: #ffae1f;     // Warning (conservé MaterialM)
+$success: #55b948;     // Vert CFL (réutilisé pour success)
+$info: #58585a;        // Gris foncé CFL
 $white: #ffffff;
 $dark: #0a081c;
 
-// Light variants
-$light-primary: rgba(93, 135, 255, 0.15);
-$light-secondary: rgba(73, 190, 255, 0.15);
-$light-accent: rgba(73, 190, 255, 0.15);
-$light-error: rgba(250, 137, 107, 0.15);
-$light-warning: rgba(255, 174, 31, 0.15);
-$light-success: rgba(0, 206, 182, 0.15);
-$light-info: rgba(83, 155, 255, 0.15);
+// Light variants - Adaptés CFL
+$light-primary: rgba(88, 88, 90, 0.15);     // Gris foncé transparent
+$light-secondary: rgba(85, 185, 72, 0.15);  // Vert transparent
+$light-accent: rgba(85, 185, 72, 0.15);     // Vert transparent
+$light-error: rgba(184, 0, 49, 0.15);       // Rouge transparent
+$light-warning: rgba(255, 174, 31, 0.15);   // Warning (conservé)
+$light-success: rgba(85, 185, 72, 0.15);    // Vert transparent
+$light-info: rgba(88, 88, 90, 0.15);        // Gris transparent
 
 // Background & Borders
 $layout-bg: #f4f7fb;

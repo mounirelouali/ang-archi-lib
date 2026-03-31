@@ -1,8 +1,26 @@
 <lib-header filiale="Terminals" [showProfile]="true"></lib-header>
 
-<button (click)="testerAPI()" style="margin: 2rem; padding: 1rem; cursor: pointer;">Tester l'API Sécurisée</button>
-
-<main style="padding: 2rem;">
+<main style="padding: 2rem; max-width: 800px;">
   <h1>Bienvenue sur l'App Host</h1>
+  
+  <section style="margin: 2rem 0;">
+    <h2>Démonstration LibInputComponent (Signals API)</h2>
+    
+    <lib-input
+      [(value)]="userInput"
+      label="Nom d'utilisateur"
+      placeholder="Entrez votre nom..."
+      [maxLength]="30"
+    />
+    
+    <p style="margin-top: 1rem; padding: 1rem; background-color: var(--materialm-light-secondary); border-radius: 8px;">
+      <strong>Valeur actuelle :</strong> {{ userInput() || '(vide)' }}
+    </p>
+  </section>
+  
+  <button (click)="testerAPI()" style="margin: 2rem 0; padding: 1rem; cursor: pointer; background-color: var(--materialm-secondary); color: white; border: none; border-radius: 8px;">
+    Tester l'API Sécurisée
+  </button>
+  
   <router-outlet></router-outlet>
 </main>
