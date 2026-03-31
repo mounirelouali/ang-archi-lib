@@ -1,0 +1,45 @@
+@use '@angular/material' as mat;
+@use './variables' as vars;
+
+@include mat.core();
+
+@mixin apply-materialm-theme() {
+  html {
+    --materialm-primary: #{vars.$primary};
+    --materialm-secondary: #{vars.$secondary};
+    --materialm-accent: #{vars.$accent};
+    --materialm-error: #{vars.$error};
+    --materialm-warning: #{vars.$warning};
+    --materialm-success: #{vars.$success};
+    --materialm-info: #{vars.$info};
+    
+    --materialm-light-primary: #{vars.$light-primary};
+    --materialm-light-secondary: #{vars.$light-secondary};
+    --materialm-light-error: #{vars.$light-error};
+    --materialm-light-warning: #{vars.$light-warning};
+    --materialm-light-success: #{vars.$light-success};
+    --materialm-light-info: #{vars.$light-info};
+    
+    --materialm-bg-layout: #{vars.$layout-bg};
+    --materialm-border-color: #{vars.$border-color};
+    --materialm-text-color: #{vars.$text-color};
+    --materialm-text-secondary: #{vars.$text-secondary};
+    
+    --materialm-shadow-sm: #{vars.$shadow-sm};
+    --materialm-shadow-md: #{vars.$shadow-md};
+    --materialm-shadow-lg: #{vars.$shadow-lg};
+    
+    --materialm-border-radius: #{vars.$border-radius};
+    --materialm-card-spacer: #{vars.$card-spacer};
+    
+    --materialm-sidenav-desktop: #{vars.$sidenav-desktop};
+    --materialm-header-height: #{vars.$header-height};
+  }
+
+  body {
+    margin: 0;
+    font-family: #{vars.$font-family};
+    background-color: var(--materialm-bg-layout);
+    color: var(--materialm-text-color);
+  }
+}

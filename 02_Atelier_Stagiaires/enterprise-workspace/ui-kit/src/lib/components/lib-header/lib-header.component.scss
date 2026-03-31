@@ -2,10 +2,11 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 1rem;
-  background-color: #2c3e50;
-  color: #ecf0f1;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  padding: 1rem 2rem;
+  background-color: var(--materialm-primary);
+  color: white;
+  box-shadow: var(--materialm-shadow-md);
+  height: var(--materialm-header-height);
 
   .logo {
     height: 40px;
@@ -18,27 +19,30 @@
     font-weight: 500;
     cursor: pointer;
     padding: 0.5rem 1rem;
-    border-radius: 4px;
-    transition: background-color 0.3s ease;
+    border-radius: 8px;
+    transition: all 0.3s ease;
 
     &:hover {
-      background-color: rgba(255, 255, 255, 0.1);
+      background-color: var(--materialm-light-primary);
     }
   }
 
   .profile-button {
-    background-color: #3498db;
+    background-color: var(--materialm-secondary);
     color: white;
     border: none;
-    padding: 0.5rem 1rem;
-    border-radius: 4px;
+    padding: 0.5rem 1.5rem;
+    border-radius: var(--materialm-border-radius);
     cursor: pointer;
     font-size: 0.9rem;
     font-weight: 500;
-    transition: background-color 0.3s ease;
+    box-shadow: var(--materialm-shadow-sm);
+    transition: all 0.3s ease;
 
     &:hover {
-      background-color: #2980b9;
+      background-color: var(--materialm-info);
+      box-shadow: var(--materialm-shadow-md);
+      transform: translateY(-2px);
     }
   }
 }

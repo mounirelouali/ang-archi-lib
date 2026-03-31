@@ -1,0 +1,19 @@
+@use '@angular/material' as mat;
+
+@include mat.core();
+
+@mixin apply-cfl-theme() {
+  html {
+    --cfl-bg-color: #f4f4f4;
+    --cfl-primary: #58585a;
+    --cfl-secondary: #55b948;
+    --cfl-error: #b80031;
+  }
+
+  body {
+    margin: 0;
+    font-family: Roboto, 'Helvetica Neue', sans-serif;
+    background-color: var(--cfl-bg-color);
+    color: #212121;
+  }
+}
