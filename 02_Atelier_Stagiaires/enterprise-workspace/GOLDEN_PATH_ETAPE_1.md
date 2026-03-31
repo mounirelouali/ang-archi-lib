@@ -793,6 +793,9 @@ apps/host-app/src/assets/ui-kit/logos/
 
 ```bash
 # Depuis enterprise-workspace/
+
+# erreur : Cannot find configuration for task ui-kit:build.
+Pas besoin de lexecuter  .... 
 npx nx build ui-kit
 ```
 
