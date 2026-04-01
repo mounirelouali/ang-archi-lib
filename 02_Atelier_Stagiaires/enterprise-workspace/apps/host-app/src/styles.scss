@@ -1,4 +1,3 @@
-// Thème MaterialM - Test branche feature/materialm-theme
-@use '../../../ui-kit/src/lib/styles/materialm/materialm-theme' as materialm;
-
-@include materialm.apply-materialm-theme();
+// Thème CFL avec Material 3
+// L'import suffit, le thème s'applique automatiquement via @include mat.all-component-themes()
+@use '../../../ui-kit/src/lib/styles/cfl-theme';

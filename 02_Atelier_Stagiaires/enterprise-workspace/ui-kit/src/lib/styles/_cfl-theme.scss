@@ -1,19 +1,44 @@
 @use '@angular/material' as mat;
 
+// Inclusion des styles de base Material
 @include mat.core();
 
-@mixin apply-cfl-theme() {
-  html {
-    --cfl-bg-color: #f4f4f4;
-    --cfl-primary: #58585a;
-    --cfl-secondary: #55b948;
-    --cfl-error: #b80031;
-  }
+// 🎨 THÈME CFL - Injection directe des variables CSS
+// Ces variables prennent le DESSUS sur tous les styles locaux (y compris host-app)
+:root {
+  // Couleurs principales Material Design Components
+  --mdc-theme-primary: #55b948 !important;
+  --mdc-theme-secondary: #58585a !important;
+  --mdc-theme-error: #b80031 !important;
+  --mdc-theme-background: #f4f4f4 !important; 
+  --mdc-theme-surface: #ffffff !important;
+  --mdc-theme-on-primary: #ffffff !important;
+  --mdc-theme-on-secondary: #ffffff !important;
+  --mdc-theme-on-error: #ffffff !important;
+  
+  // Variables système Material 3
+  --mat-sys-primary: #55b948 !important;
+  --mat-sys-on-primary: #ffffff !important;
+  --mat-sys-secondary: #58585a !important;
+  --mat-sys-on-secondary: #ffffff !important;
+  --mat-sys-tertiary: #f4f4f4 !important;
+  --mat-sys-error: #b80031 !important;
+  --mat-sys-on-error: #ffffff !important;
+  
+  // Variables boutons Material
+  --mat-filled-button-container-color: #55b948 !important;
+  --mat-filled-button-label-text-color: #ffffff !important;
+  --mat-protected-button-container-color: #58585a !important;
+  
+  // Variables formulaires Material
+  --mat-form-field-focus-state-layer-color: #55b948 !important;
+  --mat-form-field-label-text-color: #58585a !important;
+}
 
-  body {
-    margin: 0;
-    font-family: Roboto, 'Helvetica Neue', sans-serif;
-    background-color: var(--cfl-bg-color);
-    color: #212121;
-  }
+// Styles globaux complémentaires
+body {
+  margin: 0;
+  font-family: Roboto, 'Helvetica Neue', sans-serif;
+  background-color: #f4f4f4;
+  color: #212121;
 }
